@@ -7,6 +7,14 @@ const estado = reactive({
   filtro: 'todas',
 }) 
 
+function alteraNumero1(evento) {
+  return estado.numero1 = evento.target.value;
+}
+
+function alteraNumero2(evento) {
+  return estado.numero2 = evento.target.value;
+}
+
 const getResultadoSoma = () => {
   return estado.numero1 + estado.numero2;
 }
@@ -23,19 +31,11 @@ const getResultadoMultiplicacao = () => {
   return estado.numero1 * estado.numero2;
 }
 
-function alteraNumero1(evento) {
-  return estado.numero1 = evento.target.value;
-}
-
-function alteraNumero2(evento) {
-  return estado.numero2 = evento.target.value;
-}
-
 const getCalculoFiiltrado = () => {
-  const { filtro } = estado;
+    const { filtro } = estado;
 
-  switch (filtro) {
-    case 'soma':
+    switch (estado.filtro) {
+      case 'soma':
       return getResultadoSoma();
       case 'subtracao':
       return getResultadoSubtracao();
@@ -62,7 +62,7 @@ const getCalculoFiiltrado = () => {
             <input type="number" placeholder="Digite o segundo número" class="form-control" @change="alteraNumero2">
           </div>
           <div class="col-md-4">
-            <select @change="evento = estado.filtro = evento.target.value" class="form-control">
+            <select class="form-control">
               {{ estado.numero1 }}
               {{ estado.numero2 }}
               <option>Escolha a função</option>
@@ -74,8 +74,8 @@ const getCalculoFiiltrado = () => {
           </div>
         </div>
       </form>
-      <p class="mt-4" v-for="number in getCalculoFiiltrado">
-        O resultado foi: {{ getCalculoFiiltrado }}
+      <p class="mt-4" v-show="number in getCalculoFiiltrado">
+      O resultado foi: {{ getCalculoFiiltrado() }}
       </p>
     </header>
   </div>
