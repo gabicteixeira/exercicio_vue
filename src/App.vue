@@ -8,11 +8,11 @@ const estado = reactive({
 }) 
 
 function alteraNumero1(evento) {
-  return estado.numero1 = evento.target.value;
+  return estado.numero1 = Number(evento.target.value);
 }
 
 function alteraNumero2(evento) {
-  return estado.numero2 = evento.target.value;
+  return estado.numero2 = Number(evento.target.value);
 }
 
 const getResultadoSoma = () => {
@@ -29,6 +29,10 @@ const getResultadoDivisao = () => {
 
 const getResultadoMultiplicacao = () => {
   return estado.numero1 * estado.numero2;
+}
+
+function alteraFiltro(evento) {
+  return estado.filtro = evento.target.value;
 }
 
 const getCalculoFiiltrado = () => {
@@ -62,7 +66,7 @@ const getCalculoFiiltrado = () => {
             <input type="number" placeholder="Digite o segundo número" class="form-control" @change="alteraNumero2">
           </div>
           <div class="col-md-4">
-            <select class="form-control">
+            <select class="form-control" @change="alteraFiltro">
               {{ estado.numero1 }}
               {{ estado.numero2 }}
               <option>Escolha a função</option>
@@ -74,7 +78,7 @@ const getCalculoFiiltrado = () => {
           </div>
         </div>
       </form>
-      <p class="mt-4" v-show="number in getCalculoFiiltrado">
+      <p class="mt-4">
       O resultado foi: {{ getCalculoFiiltrado() }}
       </p>
     </header>
